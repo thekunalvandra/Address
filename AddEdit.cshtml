@@ -1,0 +1,34 @@
+﻿@using AddressBook_1182.Areas.LOC_Country.Models
+@model LOC_CountryModel
+
+<div class="form-row">
+    <form method="post" asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="Save" enctype="multipart/form-data">
+        @Html.HiddenFor(x => x.CountryID)
+
+        <div class="form-group col-md-6">
+            <label for="inputCountry"><span class="text-danger">*</span>Country Name</label>
+            <input type="text" class="form-control" placeholder="Enter Country Name" asp-for="CountryName" autocomplete="off" />
+            <span asp-validation-for="CountryName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="inputCity"><span class="text-danger">*</span>Country Code</label>
+            <input type="text" class="form-control" placeholder="Enter Country Code" asp-for="CountryCode" autocomplete="off" />
+            <span asp-validation-for="CountryCode" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label asp-for="ImageFile" class="control-label"><span class="text-danger">*</span>Country Image</label>
+            <input asp-for="ImageFile" class="form-control" type="file" />
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
+        </div>
+
+        <br />
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a class="btn btn-danger" asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="Index">Cancel</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

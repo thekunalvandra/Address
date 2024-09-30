@@ -1,0 +1,66 @@
+﻿@using System.Data;
+@model DataTable;
+<table class="table table-light table-hover">
+
+    <div class="col-12 text-end my-3">
+
+
+        <button type="submit" class="btn btn-warning"> <a class="nav-link text-dark" asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="AddEdit">AddCountry</a></button>
+    </div>
+    <form method="post" asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="Search">
+        <div class="input-group">
+            <input type="text" name="CountryName" class="form-control" placeholder="Country Name" autocomplete="off">
+            <button type="submit" class=" btn btn-success">Search</button>
+        </div>
+    </form>
+    <thead>
+        <tr>
+            <th scope="col">CountryId</th>
+            <th scope="col">CountryName</th>
+            <th scope="col">CountryCode</th>
+            <th scope="col">Image</th>
+            <th scope="col">Created</th>
+            <th scope="col">Modified</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (DataRow dr in Model.Rows)
+            {
+                <tr>
+                    <td>@dr["CountryID"]</td>
+                    <td>@dr["CountryName"]</td>
+                    <td>@dr["CountryCode"]</td>
+                    <td>
+                        @if (@dr["Photo"] != DBNull.Value)
+                        {
+                            <img src="@dr["Photo"]" alt="City Image" style="max-width: 100px;" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+                    </td>
+                    <td>@DateTime.Parse(dr["Created"].ToString()).ToString("dd-MM-yyyy")</td>
+                    <td>@DateTime.Parse(dr["Modified"].ToString()).ToString("yyyy-MM-dd")</td>
+
+
+                    <td>
+                        <form method="post" asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="AddEdit">
+                            <input type="hidden" name="CountryID" value="@Convert.ToInt32(dr["CountryID"])" />
+                            <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to Edit : @dr["CountryName"]')">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" asp-controller="LOC_Country" asp-action="Delete">
+                            <input type="hidden" name="CountryID" value="@Convert.ToInt32(dr["CountryID"])" />
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete : @dr["CountryName"]')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
