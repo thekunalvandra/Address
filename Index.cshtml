@@ -5,20 +5,19 @@
     <div class="col-12 text-end my-3">
 
 
-        <button type="submit" class="btn btn-warning"> <a class="nav-link text-dark" asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="AddEdit">AddCountry</a></button>
+        <button type="submit" class="btn btn-warning"> <a class="nav-link text-dark" asp-area="LOC_City" asp-controller="LOC_City" asp-action="AddEdit">AddCity</a></button>
     </div>
-    <form method="post" asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="Search">
+    <form method="post" asp-area="LOC_City" asp-controller="LOC_City" asp-action="Search">
         <div class="input-group">
-            <input type="text" name="CountryName" class="form-control" placeholder="Country Name" autocomplete="off">
+            <input type="text" name="CityName" class="form-control" placeholder="City Name" autocomplete="off">
             <button type="submit" class=" btn btn-success">Search</button>
         </div>
     </form>
     <thead>
         <tr>
-            <th scope="col">CountryId</th>
-            <th scope="col">CountryName</th>
-            <th scope="col">CountryCode</th>
-            <th scope="col">Image</th>
+            <th scope="col">CityId</th>
+            <th scope="col">CityName</th>
+            <th scope="col">CityCode</th>
             <th scope="col">Created</th>
             <th scope="col">Modified</th>
             <th scope="col"></th>
@@ -30,33 +29,21 @@
             foreach (DataRow dr in Model.Rows)
             {
                 <tr>
-                    <td>@dr["CountryID"]</td>
-                    <td>@dr["CountryName"]</td>
-                    <td>@dr["CountryCode"]</td>
+                    <td>@dr["CityID"]</td>
+                    <td>@dr["CityName"]</td>
+                    <td>@dr["CityCode"]</td>
+                    <td>@dr["Created"]</td>
+                    <td>@dr["Modified"]</td>
                     <td>
-                        @if (@dr["Photo"] != DBNull.Value)
-                        {
-                            <img src="@dr["Photo"]" alt="City Image" style="max-width: 100px;" />
-                        }
-                        else
-                        {
-                            <span>No Image</span>
-                        }
-                    </td>
-                    <td>@DateTime.Parse(dr["Created"].ToString()).ToString("dd-MM-yyyy")</td>
-                    <td>@DateTime.Parse(dr["Modified"].ToString()).ToString("yyyy-MM-dd")</td>
-
-
-                    <td>
-                        <form method="post" asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="AddEdit">
-                            <input type="hidden" name="CountryID" value="@Convert.ToInt32(dr["CountryID"])" />
-                            <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to Edit : @dr["CountryName"]')">Edit</button>
+                        <form method="post" asp-area="LOC_City" asp-controller="LOC_City" asp-action="AddEdit">
+                            <input type="hidden" name="CityID" value="@Convert.ToInt32(dr["CityID"])" />
+                            <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to Edit : @dr["CityName"]')">Edit</button>
                         </form>
                     </td>
                     <td>
-                        <form method="post" asp-controller="LOC_Country" asp-action="Delete">
-                            <input type="hidden" name="CountryID" value="@Convert.ToInt32(dr["CountryID"])" />
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete : @dr["CountryName"]')">Delete</button>
+                        <form method="post" asp-area="LOC_City" asp-controller="LOC_City" asp-action="Delete">
+                            <input type="hidden" name="CityID" value="@Convert.ToInt32(dr["CityID"])" />
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete : @dr["CityName"]')">Delete</button>
                         </form>
                     </td>
                 </tr>

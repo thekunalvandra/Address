@@ -1,34 +1,51 @@
-﻿@using AddressBook_1182.Areas.LOC_Country.Models
-@model LOC_CountryModel
-
+﻿@using AddressBook_1182.Areas.LOC_City.Models
+@model LOC_CityModel
 <div class="form-row">
-    <form method="post" asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="Save" enctype="multipart/form-data">
-        @Html.HiddenFor(x => x.CountryID)
+    <form role="form" method="post" asp-area="LOC_City" asp-controller="LOC_City" asp-action="Save">
+        @Html.HiddenFor(x=>x.CityID)
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputState"><span class="text-danger">*</span>Country</label>
+                <select id="inputState" class="form-control" asp-for="CountryID"
+                        asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))">
 
-        <div class="form-group col-md-6">
-            <label for="inputCountry"><span class="text-danger">*</span>Country Name</label>
-            <input type="text" class="form-control" placeholder="Enter Country Name" asp-for="CountryName" autocomplete="off" />
-            <span asp-validation-for="CountryName" class="text-danger"></span>
+                    <option disabled selected>Select Country</option>
+                </select>
+                <span asp-validation-for="CountryID" class="text-danger"></span>
+            </div>
         </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputState"><span class="text-danger">*</span>State</label>
+                <select id="inputState" class="form-control" asp-for="StateID"
+                        asp-items="@(new SelectList(ViewBag.StateList,"StateID","StateName"))">
 
-        <div class="form-group col-md-6">
-            <label for="inputCity"><span class="text-danger">*</span>Country Code</label>
-            <input type="text" class="form-control" placeholder="Enter Country Code" asp-for="CountryCode" autocomplete="off" />
-            <span asp-validation-for="CountryCode" class="text-danger"></span>
+                    <option disabled selected>Select State</option>
+                </select>
+                <span asp-validation-for="StateID" class="text-danger"></span>
+            </div>
         </div>
-
-        <div class="form-group col-md-6">
-            <label asp-for="ImageFile" class="control-label"><span class="text-danger">*</span>Country Image</label>
-            <input asp-for="ImageFile" class="form-control" type="file" />
-            <span asp-validation-for="ImageFile" class="text-danger"></span>
+        <div class="form-group">
+            <div class="form-group col-md-6">
+                <label for="inputCity"><span class="text-danger">*</span>City Name</label>
+                <input type="text" class="form-control" placeholder="Enter City Name"
+                       asp-for="CityName" autocomplete="off">
+                <span asp-validation-for="CityName" class="text-danger"></span>
+            </div>
         </div>
-
+        <div class="form-group">
+            <div class="form-group col-md-6">
+                <label for="inputCity"><span class="text-danger">*</span>City Code</label>
+                <input type="text" class="form-control" placeholder="Enter City Code"
+                       asp-for="CityCode" autocomplete="off">
+                <span asp-validation-for="CityCode" class="text-danger"></span>
+            </div>
+        </div>
         <br />
         <button type="submit" class="btn btn-primary">Save</button>
-        <a class="btn btn-danger" asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="Index">Cancel</a>
+        <a class="btn btn-danger" asp-controller="Home" asp-action="Index">Cancel</a>
     </form>
 </div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+@section Scripts{
+    <partial name="_ValidationScriptsPartial.cshtml" />
 }
